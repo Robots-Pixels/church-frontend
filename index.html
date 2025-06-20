@@ -329,7 +329,7 @@
         <div id="form-page">
             <div class="form-container">
                 <h2>Ajouter un Contact</h2>
-                <form id="contact-form" method="POST" action="https://church-backend-nzf2.onrender.com">
+                <form id="contact-form" method="POST">
                     <div class="form-group">
                         <label for="nom">Nom:</label>
                         <input type="text" id="nom" name="nom" class="form-control" required>
@@ -477,7 +477,7 @@
 
     console.log(formData)
 
-    fetch('http://localhost:3000/api/contacts', {
+    fetch('https://church-backend-nzf2.onrender.com/api/contacts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -509,7 +509,7 @@
             }
         }
 
-        fetch("http://localhost:3000/api/contacts")
+        fetch("https://church-backend-nzf2.onrender.com/api/contacts")
     .then(response => response.json())
     .then(data => {
         if (Array.isArray(data)) {
