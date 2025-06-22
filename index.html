@@ -325,8 +325,6 @@
     </header>
     <nav>
         <a href="#" id="nav-form">Formulaire</a>
-        <a href="#" id="nav-contacts">Liste des Contacts</a>
-        <a href="#" id="nav-repertoire">Répertoire</a>
     </nav>
     
     <div class="container">
@@ -360,67 +358,6 @@
                 </form>
             </div>
         </div>
-        
-        <!-- Contacts List Page -->
-        <div id="contacts-page" class="hidden">
-            <div class="form-container">
-                <h2>Liste des Contacts</h2>
-                <div class="list-container">
-                    <div class="list">
-                        <h3>Tous les Contacts</h3>
-                        <table id="all-contacts">
-                            <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Téléphone</th>
-                                    <th>profession</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Les contacts seront ajoutés ici dynamiquement -->
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="list">
-                        <h3>Nouveaux Convertis</h3>
-                        <table id="selected-contacts">
-                            <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Téléphone</th>
-                                    <th>profession</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Les contacts sélectionnés seront ajoutés ici -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Répertoire Page -->
-        <div id="repertoire-page" class="hidden">
-            <div class="form-container">
-                <h2>Répertoire</h2>
-                <table id="repertoire-contacts">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Téléphone</th>
-                            <th>profession</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Les contacts seront ajoutés ici dynamiquement -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -430,12 +367,12 @@
 
         // Éléments DOM
         const formPage = document.getElementById('form-page');
-        const contactsPage = document.getElementById('contacts-page');
-        const repertoirePage = document.getElementById('repertoire-page');
+        // const contactsPage = document.getElementById('contacts-page');
+        // const repertoirePage = document.getElementById('repertoire-page');
         const contactForm = document.getElementById('contact-form');
-        const allContactsTable = document.getElementById('all-contacts').querySelector('tbody');
-        const selectedContactsTable = document.getElementById('selected-contacts').querySelector('tbody');
-        const repertoireContactsTable = document.getElementById('repertoire-contacts').querySelector('tbody');
+        // const allContactsTable = document.getElementById('all-contacts').querySelector('tbody');
+        // const selectedContactsTable = document.getElementById('selected-contacts').querySelector('tbody');
+        // const repertoireContactsTable = document.getElementById('repertoire-contacts').querySelector('tbody');
 
         // Navigation
         document.getElementById('nav-form').addEventListener('click', function(e) {
@@ -443,17 +380,17 @@
             showPage(formPage);
         });
 
-        document.getElementById('nav-contacts').addEventListener('click', function(e) {
-            e.preventDefault();
-            showPage(contactsPage);
-            displayContacts();
-        });
+        // document.getElementById('nav-contacts').addEventListener('click', function(e) {
+        //     e.preventDefault();
+        //     showPage(contactsPage);
+        //     displayContacts();
+        // });
 
-        document.getElementById('nav-repertoire').addEventListener('click', function(e) {
-            e.preventDefault();
-            showPage(repertoirePage);
-            displayRepertoireContacts();
-        });
+        // document.getElementById('nav-repertoire').addEventListener('click', function(e) {
+        //     e.preventDefault();
+        //     showPage(repertoirePage);
+        //     displayRepertoireContacts();
+        // });
 
         function showPage(page) {
             // Cacher toutes les pages
@@ -480,13 +417,12 @@
         telephone: document.getElementById('telephone').value
     };
 
-    console.log(formData)
-
-    fetch('https://church-backend-nzf2.onrender.com/api/contacts', {
+    fetch('http://church-backend-nzf2.onrender.com/api/contacts/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
     })
+
     .then(response => response.json())
     .then(data => {
         alert("Contact enregistré !");
@@ -495,178 +431,175 @@
     .catch(err => console.error("Erreur:", err));
 });
 
+        // function saveContacts() {
+        //     localStorage.setItem('contacts', JSON.stringify(contacts));
+        //     localStorage.setItem('selectedContacts', JSON.stringify(selectedContacts));
+        // }
 
-        function saveContacts() {
-            localStorage.setItem('contacts', JSON.stringify(contacts));
-            localStorage.setItem('selectedContacts', JSON.stringify(selectedContacts));
-        }
+        // function loadContacts() {
+        //     const savedContacts = localStorage.getItem('contacts');
+        //     const savedSelected = localStorage.getItem('selectedContacts');
+            
+        //     if (savedContacts) {
+        //         contacts = JSON.parse(savedContacts);
+        //     }
+            
+        //     if (savedSelected) {
+        //         selectedContacts = JSON.parse(savedSelected);
+        //     }
+        // }
 
-        function loadContacts() {
-            const savedContacts = localStorage.getItem('contacts');
-            const savedSelected = localStorage.getItem('selectedContacts');
-            
-            if (savedContacts) {
-                contacts = JSON.parse(savedContacts);
-            }
-            
-            if (savedSelected) {
-                selectedContacts = JSON.parse(savedSelected);
-            }
-        }
+    //     fetch("https://church-backend-nzf2.onrender.com/api/contacts")
+    // .then(response => response.json())
+    // .then(data => {
+    //     if (Array.isArray(data)) {
+    //         contacts = data.map(contact => ({
+    //             nom: contact.nom,
+    //             prenom: contact.prenom,
+    //             adresse: contact.adresse || "",
+    //             profession: contact.profession || "",
+    //             telephone: contact.telephone
+    //         }));
 
-        fetch("https://church-backend-nzf2.onrender.com/api/contacts")
-    .then(response => response.json())
-    .then(data => {
-        if (Array.isArray(data)) {
-            contacts = data.map(contact => ({
-                nom: contact.nom,
-                prenom: contact.prenom,
-                adresse: contact.adresse || "",
-                profession: contact.profession || "",
-                telephone: contact.telephone
-            }));
+    //         saveContacts();
+    //     } else {
+    //         console.error("Données inattendues:", data);
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error("Erreur lors du chargement des contacts:", error);
+    // });
 
-            saveContacts();
-        } else {
-            console.error("Données inattendues:", data);
-        }
-    })
-    .catch(error => {
-        console.error("Erreur lors du chargement des contacts:", error);
-    });
+        // function displayContacts() {
+        //     // Vider les tables
+        //     allContactsTable.innerHTML = '';
+        //     selectedContactsTable.innerHTML = '';
+            
+        //     // Afficher tous les contacts
+        //     contacts.forEach((contact, index) => {
+        //         const row = document.createElement('tr');
+        //         row.innerHTML = `
+        //             <td>${contact.nom}</td>
+        //             <td>${contact.prenom}</td>
+        //             <td>${contact.telephone}</td>
+        //             <td>${contact.profession}</td>
+        //             <td>
+        //                 <button class="action-btn add" data-index="${index}">Ajouter</button>
+        //             </td>
+        //         `;
+        //         allContactsTable.appendChild(row);
+        //     });
+            
+        //     // Ajouter les écouteurs d'événements aux boutons
+        //     document.querySelectorAll('.action-btn.add').forEach(button => {
+        //         button.addEventListener('click', function() {
+        //             const index = parseInt(this.getAttribute('data-index'));
+        //             addToSelected(index);
+        //         });
+        //     });
+            
+        //     // Afficher les contacts sélectionnés
+        //     selectedContacts.forEach(contact => {
+        //         const row = document.createElement('tr');
+        //         row.innerHTML = `
+        //             <td>${contact.nom}</td>
+        //             <td>${contact.prenom}</td>
+        //             <td>${contact.telephone}</td>
+        //             <td>${contact.profession}</td>
+        //         `;
+        //         selectedContactsTable.appendChild(row);
+        //     });
+        // }
 
+        // function addToSelected(index) {
+        //     const contact = contacts[index];
+            
+        //     // Vérifier si le contact est déjà dans la liste sélectionnée
+        //     const alreadySelected = selectedContacts.some(c => 
+        //         c.nom === contact.nom && c.prenom === contact.prenom && c.telephone === contact.telephone && c.profession === contact.profession
+        //     );
+            
+        //     if (!alreadySelected) {
+        //         selectedContacts.push(contact);
+        //         saveContacts();
+        //         displayContacts();
+        //     } else {
+        //         alert('Ce contact est déjà dans la liste sélectionnée.');
+        //     }
+        // }
 
+        // function displayRepertoireContacts() {
+        //     repertoireContactsTable.innerHTML = '';
+            
+        //     contacts.forEach((contact, index) => {
+        //         const row = document.createElement('tr');
+        //         row.innerHTML = `
+        //             <td>${contact.nom}</td>
+        //             <td>${contact.prenom}</td>
+        //             <td>${contact.telephone}</td>
+        //             <td>${contact.profession}</td>
+        //             <td>
+        //                 <button class="action-btn save" data-index="${index}">Enregistrer Contact</button>
+        //             </td>
+        //         `;
+        //         repertoireContactsTable.appendChild(row);
+        //     });
+            
+        //     // Ajouter les écouteurs d'événements aux boutons
+        //     document.querySelectorAll('.action-btn.save').forEach(button => {
+        //         button.addEventListener('click', function() {
+        //             const index = parseInt(this.getAttribute('data-index'));
+        //             saveToAddressBook(index);
+        //         });
+        //     });
+        // }
 
-        function displayContacts() {
-            // Vider les tables
-            allContactsTable.innerHTML = '';
-            selectedContactsTable.innerHTML = '';
+        // function saveToAddressBook(index) {
+        //     const contact = contacts[index];
             
-            // Afficher tous les contacts
-            contacts.forEach((contact, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${contact.nom}</td>
-                    <td>${contact.prenom}</td>
-                    <td>${contact.telephone}</td>
-                    <td>${contact.profession}</td>
-                    <td>
-                        <button class="action-btn add" data-index="${index}">Ajouter</button>
-                    </td>
-                `;
-                allContactsTable.appendChild(row);
-            });
-            
-            // Ajouter les écouteurs d'événements aux boutons
-            document.querySelectorAll('.action-btn.add').forEach(button => {
-                button.addEventListener('click', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    addToSelected(index);
-                });
-            });
-            
-            // Afficher les contacts sélectionnés
-            selectedContacts.forEach(contact => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${contact.nom}</td>
-                    <td>${contact.prenom}</td>
-                    <td>${contact.telephone}</td>
-                    <td>${contact.profession}</td>
-                `;
-                selectedContactsTable.appendChild(row);
-            });
-        }
-
-        function addToSelected(index) {
-            const contact = contacts[index];
-            
-            // Vérifier si le contact est déjà dans la liste sélectionnée
-            const alreadySelected = selectedContacts.some(c => 
-                c.nom === contact.nom && c.prenom === contact.prenom && c.telephone === contact.telephone && c.profession === contact.profession
-            );
-            
-            if (!alreadySelected) {
-                selectedContacts.push(contact);
-                saveContacts();
-                displayContacts();
-            } else {
-                alert('Ce contact est déjà dans la liste sélectionnée.');
-            }
-        }
-
-        function displayRepertoireContacts() {
-            repertoireContactsTable.innerHTML = '';
-            
-            contacts.forEach((contact, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${contact.nom}</td>
-                    <td>${contact.prenom}</td>
-                    <td>${contact.telephone}</td>
-                    <td>${contact.profession}</td>
-                    <td>
-                        <button class="action-btn save" data-index="${index}">Enregistrer Contact</button>
-                    </td>
-                `;
-                repertoireContactsTable.appendChild(row);
-            });
-            
-            // Ajouter les écouteurs d'événements aux boutons
-            document.querySelectorAll('.action-btn.save').forEach(button => {
-                button.addEventListener('click', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    saveToAddressBook(index);
-                });
-            });
-        }
-
-        function saveToAddressBook(index) {
-            const contact = contacts[index];
-            
-            // Créer un objet contact pour l'API Contact Picker
-            if ('contacts' in navigator && 'ContactsManager' in window) {
-                const properties = ['name', 'tel'];
-                const options = { multiple: false };
+        //     // Créer un objet contact pour l'API Contact Picker
+        //     if ('contacts' in navigator && 'ContactsManager' in window) {
+        //         const properties = ['name', 'tel'];
+        //         const options = { multiple: false };
                 
-                // Tentative d'utiliser l'API Contact Picker (si disponible)
-                navigator.contacts.select(properties, options)
-                    .then(results => {
-                        alert('Contact enregistré dans le répertoire!');
-                    })
-                    .catch(err => {
-                        console.error('Erreur:', err);
-                        fallbackContactSave(contact);
-                    });
-            } else {
-                fallbackContactSave(contact);
-            }
-        }
+        //         // Tentative d'utiliser l'API Contact Picker (si disponible)
+        //         navigator.contacts.select(properties, options)
+        //             .then(results => {
+        //                 alert('Contact enregistré dans le répertoire!');
+        //             })
+        //             .catch(err => {
+        //                 console.error('Erreur:', err);
+        //                 fallbackContactSave(contact);
+        //             });
+        //     } else {
+        //         fallbackContactSave(contact);
+        //     }
+        // }
 
-        function fallbackContactSave(contact) {
-            // Solution alternative en cas d'indisponibilité de l'API Contacts
-            // Créer un lien pour télécharger un vCard
-            const vCard = `BEGIN:VCARD
-VERSION:3.0
-FN:${contact.prenom} ${contact.nom}
-TEL;TYPE=CELL:${contact.telephone}
-ADR;TYPE=HOME:;;${contact.adresse};;;;
-END:VCARD`;
+//         function fallbackContactSave(contact) {
+//             // Solution alternative en cas d'indisponibilité de l'API Contacts
+//             // Créer un lien pour télécharger un vCard
+//             const vCard = `BEGIN:VCARD
+// VERSION:3.0
+// FN:${contact.prenom} ${contact.nom}
+// TEL;TYPE=CELL:${contact.telephone}
+// ADR;TYPE=HOME:;;${contact.adresse};;;;
+// END:VCARD`;
             
-            const blob = new Blob([vCard], { type: 'text/vcard' });
-            const url = URL.createObjectURL(blob);
+//             const blob = new Blob([vCard], { type: 'text/vcard' });
+//             const url = URL.createObjectURL(blob);
             
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${contact.prenom}_${contact.nom}.vcf`;
-            a.click();
+//             const a = document.createElement('a');
+//             a.href = url;
+//             a.download = `${contact.prenom}_${contact.nom}.vcf`;
+//             a.click();
             
-            URL.revokeObjectURL(url);
-            alert('Le fichier de contact a été téléchargé. Vous pouvez l\'importer dans votre répertoire.');
-        }
+//             URL.revokeObjectURL(url);
+//             alert('Le fichier de contact a été téléchargé. Vous pouvez l\'importer dans votre répertoire.');
+//         }
 
         // Charger les données au démarrage
-        loadContacts();
+        // loadContacts();
     </script>
 </body>
 </html>
