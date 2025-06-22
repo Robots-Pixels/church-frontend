@@ -417,7 +417,7 @@
         telephone: document.getElementById('telephone').value
     };
 
-    fetch('http://church-backend-nzf2.onrender.com/api/contacts/save', {
+    fetch('https://church-backend-nzf2.onrender.com/api/contacts/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
