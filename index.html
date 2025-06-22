@@ -47,13 +47,15 @@
 
         .header-image {
             width: 100%;
-            max-width: 1200px; /* Limite la largeur maximale */
-            height: auto; /* Maintient le ratio d'aspect */
-            max-height: 150px; /* Réduit la hauteur maximale */
-            object-fit: contain; /* Pour éviter la distorsion */
-            margin: 0 auto; /* Centre l'image horizontalement */
-            display: block;
+            max-width: 360px; 
+            aspect-ratio: 3 / 1; 
+            background-image: url("./assets/logo.jpeg");
+            background-position: center;
+            background-size: 60%;
+            background-repeat: no-repeat;
+            margin-left: 1%;
         }
+
 
         nav {
             background: var(--text-dark);
@@ -210,9 +212,10 @@
                 width: auto;
             }
 
-            .header-image {
-                max-height: 180px; /* Légèrement plus grande sur les écrans moyens */
-            }
+            /* .header-image {
+                margin-left: 0%;
+                margin: 0px auto;
+            } */
         }
 
         @media (max-width: 767px) {
@@ -308,15 +311,17 @@
             }
 
             .header-image {
-                max-height: 120px; /* Encore plus petite sur les très petits écrans */
+                margin-left: 0%;
+                margin: 0px auto;
             }
+
         }
     </style>
 </head>
 <body>
     <header>
-        <!-- Image d'en-tête ajoutée ici -->
-    <img src="./assets/logo.jpeg" alt="Bannière Gestion de Contacts" class="header-image">
+        <div class="header-image"></div>
+
     </header>
     <nav>
         <a href="#" id="nav-form">Formulaire</a>
